@@ -2,11 +2,14 @@
 
 OUT_DIR=out
 
-# you should change the "CROSS_COMPILE" to right toolchain path (you downloaded)
-# ex)CROSS_COMPILE={android platform directory you downloaded}/android/prebuilt/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
-COMMON_ARGS="-C $(pwd) O=$(pwd)/${OUT_DIR} ARCH=arm CROSS_COMPILE=arm-linux-androideabi- KCFLAGS=-mno-android"
+COMMON_ARGS="-C $(pwd) O=$(pwd)/${OUT_DIR} ARCH=arm CROSS_COMPILE=$(pwd)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- KCFLAGS=-mno-android"
 
-export PATH=$(pwd)/../PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
+export PATH=$(pwd)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin:$PATH
+
+export USE_CCACHE=1
+export CCACHE_DIR=/media/elliwigy/sampwnd/.cache
+ccache -M 50G
+
 export ARCH=arm
 
 [ -d ${OUT_DIR} ] && rm -rf ${OUT_DIR}
